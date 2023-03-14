@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_14_162047) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_14_170249) do
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price", precision: 15, scale: 2
+    t.datetime "check_in_time"
+    t.integer "owner_id", null: false
+    t.integer "guest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_id"], name: "index_rooms_on_guest_id"
+    t.index ["owner_id"], name: "index_rooms_on_owner_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "rooms", "users", column: "guest_id"
+  add_foreign_key "rooms", "users", column: "owner_id"
 end
