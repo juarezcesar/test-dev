@@ -62,7 +62,7 @@ p "Check guests out the rooms --------"
 count = 0
 Room.busy[1..10].each do |r|
   g = r.guest
-  if g.check_out 
+  if g.check_out(Time.now + 30.minutes)
     p "   #{g.name} checked out at #{r.name}"
     count += 1 
   end
