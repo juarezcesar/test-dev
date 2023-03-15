@@ -14,5 +14,21 @@ class Owner < User
     def guest_list
         rooms.busy.map(&:guest)
     end 
+
+    def create_invoices(stays)
+        total = 0  
+        invoice = Invoice.new(
+            owner: self,
+            guest: self.guest,
+            total: 0
+        )
+        stays.each do |s|
+            unless stay.charged?
+                invoice.stays << stay
+                invoice.total += stay.total               
+            end
+        end
+        invoice.save! unless invoice.stays.count == 0
+    end
     
 end
