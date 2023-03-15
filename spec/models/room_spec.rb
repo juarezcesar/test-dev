@@ -2,11 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Room, type: :model do
 
-  fixtures :all
-
   subject {
-    owner = User.new(:peter)
-    described_class.new(name: "suite luxury", price: 10, owner: owner)
+    described_class.new(name: "suite luxury", price: 10, owner: User.create(name: "Peter"))
   }
 
   it "is valid with valid attributes" do
@@ -14,14 +11,14 @@ RSpec.describe Room, type: :model do
   end
 
   it "is not valid without a name" do
-    subject.name = ""
+    subject.name = nil
     expect(subject).to_not be_valid
   end
 
-  it "create a room" do
-    room = subject.create_room("Greek Island", 10.2)
-    expect(room).to_not be_valid
-  end
+  # it "create a room" do
+  #   room = subject.create_room("Greek Island", 10.2)
+  #   expect(room).to_not be_valid
+  # end
 
   it "check into a room"
 

@@ -13,7 +13,9 @@ class User < ApplicationRecord
        
     # methods as owner
     def create_room(name, price = 0)
-        rooms.new(name: name, price: 0)
+        room = rooms.new(name: name, price: 0)
+        room.save!
+        return room
     end
 
     def guest_list
@@ -25,8 +27,8 @@ class User < ApplicationRecord
         !hosted_at.nil?
     end
 
-    def check_in(room, time = Time.now)         
-        room.check_in(self, time) if !hosted?         
+    def check_in(room, time = Time.now)  
+        room.available? and room.owner != self ? room.check_in(self, time) : false
     end  
 
     def check_out(time = Time.now)
