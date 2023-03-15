@@ -27,8 +27,7 @@ class Room < ApplicationRecord
   
   def check_out(check_out_time = Time.now)
     if busy? 
-      register_stay(check_out_time)
-      free_room()
+      free_room() if register_stay(check_out_time)
     else
       raise Exception, 'You'
     end
@@ -57,7 +56,7 @@ class Room < ApplicationRecord
       check_in_time: self.check_in_time, 
       check_out_time:  check_out_time,
       total: calculate_total(),
-    ).save!
+    ).save
   end
 
 

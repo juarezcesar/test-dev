@@ -5,11 +5,15 @@ class Guest < User
 
     #methods as guest
     def hosted?
-        !room.nil?
+        room.present?
     end
 
     def check_in(room, time = Time.now)  
-        room.available? and room.owner != self ? room.check_in(self, time) : false
+        if room.available? and !hosted? and room.owner_id != self.id 
+            room.check_in(self, time)
+        else
+            false
+        end
     end  
 
     def check_out(time = Time.now)

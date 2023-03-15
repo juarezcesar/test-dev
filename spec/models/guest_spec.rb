@@ -33,6 +33,14 @@ RSpec.describe Guest, type: :model do
     expect(subject.check_in(room)).to_not be_truthy
   end
 
+  it "not able to check into a room while is hosted" do
+    owner = Owner.create(name: "John")
+    room1 = owner.create_room('Greek Islands')
+    room2 = owner.create_room('Phillippine Islands')
+    subject.check_in(room1)
+    expect(subject.check_in(room2)).to_not be_truthy
+  end
+
   it "consult a list of his guests"
 
   it "create invoices"
