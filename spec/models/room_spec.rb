@@ -15,25 +15,17 @@ RSpec.describe Room, type: :model do
     expect(subject).to_not be_valid
   end
 
-  # it "create a room" do
-  #   room = subject.create_room("Greek Island", 10.2)
-  #   expect(room).to_not be_valid
-  # end
+  it "is not valid if the owner and guest are the same" do
+    subject.guest = subject.owner
+    expect(subject).to_not be_valid
+  end
 
-  it "check into a room"
+  it "calculate the total price" do
+    guest = User.create(name: "Paul") 
+    time_now = Time.now
+    guest.check_in(subject, time_now)
 
-  it "check out from a room"
-
-  it "not able to check into a accupied room"
-
-  it "not able to check into a room owned by himself"
-
-  it "not able to check into a room when is a guest in another room"
-
-  it "consult a list of his guests"
-
-  it "create invoices"
-
-  it "set the invoice as paid"
+    expect(subject.calculate_total(time_now + 30.minutes)).to eq 30*subject.price
+  end
 
 end

@@ -33,7 +33,7 @@ class Room < ApplicationRecord
   end
 
   def calculate_total(checkout = Time.now)
-    minutes = (checkout - self.check_in_time) / 1.minutes
+    minutes = ((checkout - self.check_in_time) / 1.minutes).to_i
     return minutes*self.price    
   end
 
