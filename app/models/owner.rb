@@ -1,7 +1,7 @@
 class Owner < User
 
-    has_many :rooms, foreign_key: "owner_id"
-    has_many :invoices, foreign_key: "owner_id"
+    has_many :rooms
+    has_many :invoices
     
        
     # methods as owner
@@ -15,7 +15,7 @@ class Owner < User
         rooms.busy.map(&:guest)
     end 
 
-    def create_invoices(stays)
+    def create_invoices()
         total = 0  
         invoice = Invoice.new(
             owner: self,

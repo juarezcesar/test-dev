@@ -28,7 +28,19 @@ RSpec.describe Owner, type: :model do
   end
 
   # it "create invoices" do
-  #   subject.create_invoices
+  #   r1 = subject.create_room( 'Greek Islands', 10)
+  #   r2 = subject.create_room( 'Philippine Islands', 20)
+
+  #   g1 = Guest.create!(name:"Paul")
+  #   g2 = Guest.create!(name:"Andrew")
+
+  #   g1.check_in(r1)
+  #   g2.check_in(r2)
+  #   g1.check_out(r1)
+  #   g2.check_out(r2)
+
+  #   invoices = subject.create_invoices(&:id).sort
+   
     
   # end
 

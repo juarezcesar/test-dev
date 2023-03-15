@@ -1,11 +1,11 @@
 class Guest < User
 
-    has_many :stays, foreign_key: "guest_id"
-    has_one :hosted_at, class_name: "Room", foreign_key: "guest_id"
+    has_many :stays
+    has_one :room
 
     #methods as guest
     def hosted?
-        !hosted_at.nil?
+        !room.nil?
     end
 
     def check_in(room, time = Time.now)  
@@ -13,7 +13,7 @@ class Guest < User
     end  
 
     def check_out(time = Time.now)
-        hosted_at.check_out(time) if hosted?
+        room.check_out(time) if hosted?
     end
         
 end
