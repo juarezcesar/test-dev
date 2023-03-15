@@ -41,10 +41,4 @@ RSpec.describe Guest, type: :model do
     expect(subject.check_in(room2)).to_not be_truthy
   end
 
-  it "consult a list of his guests"
-
-  it "create invoices"
-
-  it "set the invoice as paid"
-
 end

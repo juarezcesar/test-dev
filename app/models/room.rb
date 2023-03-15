@@ -27,9 +27,9 @@ class Room < ApplicationRecord
   
   def check_out(check_out_time = Time.now)
     if busy? 
-      free_room() if register_stay(check_out_time)
+      return register_stay(check_out_time) && free_room()      
     else
-      raise Exception, 'You'
+      return false
     end
   end
 
@@ -51,12 +51,12 @@ class Room < ApplicationRecord
   end
 
   def register_stay(check_out_time = Time.now )
-    stays.new(
+    stays.create(
       guest: self.guest,
       check_in_time: self.check_in_time, 
       check_out_time:  check_out_time,
       total: calculate_total(),
-    ).save
+    )
   end
 
 

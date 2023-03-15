@@ -7,6 +7,7 @@ class Stay < ApplicationRecord
 
   validates_presence_of :check_in_time, :check_out_time, :total
 
+  #Stays not associate with an invoice to be charged
   scope :open, -> { where(invoice_id: nil) }
  
   

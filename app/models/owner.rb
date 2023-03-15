@@ -17,6 +17,9 @@ class Owner < User
     end 
 
     def create_invoices()
+        
+        open_stays = stays.open
+
         total = 0  
         invoice = Invoice.new(
             owner: self,

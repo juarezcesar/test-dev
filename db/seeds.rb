@@ -23,11 +23,18 @@ User.destroy_all
 names = ["James Madison", "John Quincy Adams", "William Henry Harrison", "Zachary Taylor", "Millard Fillmore", "Franklin Pierce", "Mariam Crane", "Audrey Beck", "Elouise Thornton", "Suzanne Harrison", "Arun Allison", "Asad Lee", "Daniella Colon", "Findlay Copeland"]
 
 # 14 users will created
-users = User.create!(names.map{ |n| {name: n}})
 
+p "Creating users ...."
+names.each do |n|
+  u = User.create!(name: n)
+  p "(#{u.id}) #{u.name}"
+end
+users = User.all
 p "#{users.count} users created"
 
-# Create 3 rooms for the first 10 users
+
+
+# Create 3 rooms for the first 10 users. Name: Owner initials + index"
 users[1..10].each do |u|
   room_name = u.name.scan(/\b\w/).join
   number_of_rooms = 3
@@ -35,34 +42,38 @@ users[1..10].each do |u|
     u.as_owner.create_room("#{room_name} - #{i+1}", 10 )
   end    
 end
-p "#{Room.available.count} rooms created"
+p "#{Room.all.count} rooms created"
 
-# Users will try check in
-p "Users check into the rooms --------"
+# Guests will try check in
+p "Check guest in....."
+count = 0
+rooms = Room.available
+users.sort_by(&:name).each_with_index do |u,i|
+  if i <= rooms.size && u.as_guest.check_in(rooms[i]) 
+    p "    #{u.name} checked in at #{rooms[i].name}"
+    count += 1
+  end
+end
+p "#{count} guests checked in and #{ Room.available.count} rooms available"
 
-Room.available.each_with_index do |r,i|
-  u = users.sample
-  if u.as_guest.check_in(r) 
-    p "#{u.name} checked in at #{r.name}"
+# Guest checking out
+
+p "Check guests out the rooms --------"
+count = 0
+Room.busy[1..10].each do |r|
+  g = r.guest
+  if g.check_out 
+    p "   #{g.name} checked out at #{r.name}"
+    count += 1 
   end
 end
 
-p "#{Room.busy.count} guest had checked in"
+p "#{count} guests checked out"
+p "#{Room.available.count} rooms available "
+p "#{Room.busy.count} rooms busy "
 
-# User check out
-Room.busy.each do |r|
-    if rand(2) == 0
-        u = r.guest
-        if u.check_out(r) 
-            p("#{u.name} checked out at #{r.name}") 
-        end
-    end
-end
 
-# p "Users checked out"
-# p "Rooms busy: #{Room.busy.count}"
 
-# p "------"
 
 # p "Created #{User.count} users"
 # p "Created #{Room.count} rooms"
