@@ -1,37 +1,22 @@
 class User < ApplicationRecord
 
-    validates :name, presence: true
+  validates :name, presence: true
 
-    # As a owner
-    has_many :rooms, foreign_key: "owner_id"
-    has_many :invoices, foreign_key: "owner_id"
+  def as_owner
+    if self.id
+      Owner.find(self.id)
+    else
+      raise "User cannot act as a Owner before being saved" 
+    end
+  end
+
+  def as_guest
+    if self.id
+      Guest.find(self.id)
+    else
+      raise "User cannot act as a Guest before being saved" 
+    end
+  end
     
-    # As a guest
-    has_many :stays, foreign_key: "guest_id"
-    has_one :hosted_at, class_name: "Room", foreign_key: "guest_id"
 
-       
-    # methods as owner
-    def create_room(name, price = 0)
-        room = rooms.new(name: name, price: 0)
-        room.save!
-        return room
-    end
-
-    def guest_list
-        rooms.busy.map(&:guest)
-    end 
-
-    #methods as guest
-    def hosted?
-        !hosted_at.nil?
-    end
-
-    def check_in(room, time = Time.now)  
-        room.available? and room.owner != self ? room.check_in(self, time) : false
-    end  
-
-    def check_out(time = Time.now)
-        hosted_at.check_out(time) if hosted?
-    end
 end

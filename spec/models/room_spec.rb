@@ -21,7 +21,7 @@ RSpec.describe Room, type: :model do
   end
 
   it "calculate the total price" do
-    guest = User.create(name: "Paul") 
+    guest = Guest.create(name: "Paul") 
     time_now = Time.now
     guest.check_in(subject, time_now)
 

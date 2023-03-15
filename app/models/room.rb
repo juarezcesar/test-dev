@@ -42,7 +42,7 @@ class Room < ApplicationRecord
   private
 
   def guest_cannot_be_the_owner
-    errors.add(:guest_id, "cannot be the same as the owner.") if self.guest == self.owner
+    errors.add(:guest_id, "cannot be the same as the owner.") if self.guest_id == self.owner_id
   end
 
   def free_room
