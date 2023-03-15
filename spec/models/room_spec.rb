@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Room, type: :model do
 
   subject {
-    described_class.new(name: "suite luxury", price: 10, owner: User.create(name: "Peter"))
+    described_class.new(name: "suite luxury", price: 10, owner: Owner.create(name: "Peter"))
   }
 
   it "is valid with valid attributes" do
@@ -16,7 +16,7 @@ RSpec.describe Room, type: :model do
   end
 
   it "is not valid if the owner and guest are the same" do
-    subject.guest = subject.owner
+    subject.guest = subject.owner.as_guest
     expect(subject).to_not be_valid
   end
 

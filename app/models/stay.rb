@@ -7,5 +7,7 @@ class Stay < ApplicationRecord
 
   validates_presence_of :check_in_time, :check_out_time, :total
 
+  scope :open, -> { where(invoice_id: nil) }
+ 
   
 end

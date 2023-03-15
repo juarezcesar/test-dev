@@ -2,6 +2,7 @@ class Owner < User
 
     has_many :rooms
     has_many :invoices
+    has_many :stays, through: :rooms
     
        
     # methods as owner
