@@ -1,6 +1,8 @@
 class Room < ApplicationRecord
+
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   belongs_to :guest, class_name: 'User', foreign_key: 'guest_id', optional: true
+  has_many :stays
   
   validates :name, presence: true
   validates :owner_id, presence: true
@@ -25,7 +27,7 @@ class Room < ApplicationRecord
   
   def check_out(check_out_time = Time.now)
     if busy? 
-      #register_stay(check_out_time)
+      register_stay(check_out_time)
       free_room()
     else
       raise Exception, 'You'
@@ -48,6 +50,16 @@ class Room < ApplicationRecord
     self.check_in_time = nil
     self.save
   end
+
+  def register_stay(check_out_time = Time.now )
+    stays.new(
+      guest: self.guest,
+      check_in_time: self.check_in_time, 
+      check_out_time:  check_out_time,
+      total: calculate_total(),
+    ).save!
+  end
+
 
   
 end
