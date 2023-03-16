@@ -7,7 +7,7 @@ class Owner < User
        
     # methods as owner
     def create_room(name, price = 0)
-        room = rooms.new(name: name, price: 0)
+        room = rooms.new(name: name, price: price)
         room.save!
         return room
     end
@@ -18,21 +18,26 @@ class Owner < User
 
     def create_invoices()
         
-        open_stays = stays.open
+        invoices = []
+        stays_by_guest = stays.open.group_by(&:guest_id)
 
-        total = 0  
-        invoice = Invoice.new(
-            owner: self,
-            guest: self.guest,
-            total: 0
-        )
-        stays.each do |s|
-            unless stay.charged?
-                invoice.stays << stay
-                invoice.total += stay.total               
-            end
+        stays_by_guest.each_pair do |guest_id, stays|
+
+            invoice = Invoice.create(
+                owner: self,
+                guest_id: guest_id,
+                total: 0
+            )
+
+            Stay.where(id: stays.map(&:id), invoice: nil).update_all(invoice_id: invoice.id)
+
+            invoice.total = stays.sum(&:total)
+            invoice.save!
+            #invoices << invoice.save! && invoice
+
         end
-        invoice.save! unless invoice.stays.count == 0
+
+        return invoices
     end
     
 end

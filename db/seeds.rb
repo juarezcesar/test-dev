@@ -39,7 +39,7 @@ users[1..10].each do |u|
   room_name = u.name.scan(/\b\w/).join
   number_of_rooms = 3
   number_of_rooms.times do |i|
-    u.as_owner.create_room("#{room_name} - #{i+1}", 10 )
+    u.as_owner.create_room("#{room_name} - #{i+1}", 10.0 )
   end    
 end
 p "#{Room.all.count} rooms created"
@@ -57,8 +57,7 @@ end
 p "#{count} guests checked in and #{ Room.available.count} rooms available"
 
 # Guest checking out
-
-p "Check guests out the rooms --------"
+p "Check guests out the rooms..."
 count = 0
 Room.busy[1..10].each do |r|
   g = r.guest
@@ -72,11 +71,7 @@ p "#{count} guests checked out"
 p "#{Room.available.count} rooms available "
 p "#{Room.busy.count} rooms busy "
 
-
-
-
-# p "Created #{User.count} users"
-# p "Created #{Room.count} rooms"
-# p "Created #{Stay.count} stays"
-# p "Rooms available: #{Room.available.count}"
-# p "Rooms busy: #{Room.busy.count}"
+# Generateing invoices
+p "Creating invoices..."
+Owner.all.each { |o| o.as_owner.create_invoices() }
+p "#{Invoice.all.count} invoices created"

@@ -3,6 +3,7 @@ class Room < ApplicationRecord
   belongs_to :owner
   belongs_to :guest, optional: true
   has_many :stays
+  has_one :currentstays
   
   validates :name, presence: true
   validates :owner_id, presence: true
@@ -55,7 +56,7 @@ class Room < ApplicationRecord
       guest: self.guest,
       check_in_time: self.check_in_time, 
       check_out_time:  check_out_time,
-      total: calculate_total(),
+      total: calculate_total(check_out_time),
     )
   end
 
