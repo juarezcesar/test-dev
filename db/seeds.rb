@@ -15,8 +15,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-Invoice.destroy_all
 Stay.destroy_all
+Invoice.destroy_all
 Room.destroy_all
 User.destroy_all
 
@@ -73,5 +73,5 @@ p "#{Room.busy.count} rooms busy "
 
 # Generateing invoices
 p "Creating invoices..."
-Owner.all.each { |o| o.as_owner.create_invoices() }
+Owner.all[1..2].each { |o| o.as_owner.create_invoices() }
 p "#{Invoice.all.count} invoices created"

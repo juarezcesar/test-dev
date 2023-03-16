@@ -1,0 +1,19 @@
+<h1>Dashboard</h1>
+
+<h2> <%= @user.name %> </h2>
+
+<h3> Owner Panel </h3> 
+
+<div class="solid">
+
+  <%= render partial: "owner_panel", locals: {rooms: @rooms, unbilled_stays: @unbilled_stays} %>
+
+</div>
+
+<h3> Guest Panel </h3> 
+
+<div class="solid">
+
+  <% # render partial: "guest_panel", locals: {rooms: @rooms, uncharged_stays: @uncharged_stays} %>
+
+</div>

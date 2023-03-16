@@ -1,0 +1,19 @@
+<h1>Infinity Hotel </h1>
+<p>Select the user to login:</p>
+
+
+
+<table >
+    <tr>
+        <th> User </th>
+        <th> Actions </th>
+    </tr>
+    <% @users.each do |u| %>
+        <tr>
+            <td> <%= "#{u.id} - #{u.name}" %> </td>
+            <td> 
+                <%= link_to "Login", u %>
+            </td>            
+        </tr>
+    <% end %>
+</table>
