@@ -1,5 +1,7 @@
 class Room < ApplicationRecord
-
+  include ActiveModel::Conversion
+  extend  ActiveModel::Naming
+  
   belongs_to :owner
   belongs_to :guest, optional: true
   has_many :stays

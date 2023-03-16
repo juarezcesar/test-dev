@@ -1,10 +1,9 @@
-class UserController < ApplicationController
+class GuestController < ApplicationController
+
+  before_action :set_owner
+
   def show
 
-    @user = User.find(params[:id])
-
-    #As an owner
-    @owner = @user.as_owner
     @rooms = @owner.rooms
 
     # Adding guest and room names to stays, and sorting by user name. Using join to avoid many calls to DB
@@ -12,7 +11,6 @@ class UserController < ApplicationController
       @owner.stays.unbilled.includes(:guest, :room).group_by {|s| s.guest.name}
         
     @invoices = @owner.invoices.includes(:guest)
-
 
     #As a guest
     @guest = @user.as_guest
@@ -26,12 +24,6 @@ class UserController < ApplicationController
     redirect_to user_path(user)
   end
 
-  def checkin
-  end
-
-  def checkout
-  end
-
   def create_room
   end
 
@@ -41,4 +33,11 @@ class UserController < ApplicationController
     redirect_to user_path(@user)
 
   end
+
+  private 
+
+  def set_owner
+    @owner = Owner.find(params[:id])
+  end
+
 end

@@ -6,15 +6,16 @@
   <table >
     <tr>
       <th> Room </th>
-      <th> Price per minute </th>
+      <th> Price </th>
       <th> Guest </th>
     </tr>
     <% rooms.each do |r| %>
       <tr>
         <td><%= r.name %></td>
         <td><%= r.price %></td>
-        <td><%= r.guest && r.guest.name %></td>
+        <td><%= r.guest ? r.guest.name : 'available' %></td>
       </tr>
     <% end %>
   </table>
 <% end %>
+<%= link_to "New room", new_owner_room_path(@owner)  %>  

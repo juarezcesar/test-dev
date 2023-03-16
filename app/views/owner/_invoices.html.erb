@@ -18,7 +18,7 @@
         <td><%= i.paid ? "Yes" : "No" %></td>
         <td> 
           <% if !i.paid %> 
-            <%= form_with url: user_set_invoice_as_paid_path(@owner) do |form| %>
+            <%= form_with url: owner_set_invoice_as_paid_path(@owner) do |form| %>
               <%= form.hidden_field :invoice_id, :value => i.id %>
               <%= form.submit "Set as paid" %>
             <% end %>  

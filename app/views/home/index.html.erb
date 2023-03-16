@@ -6,13 +6,14 @@
 <table >
     <tr>
         <th> User </th>
-        <th> Actions </th>
+        <th> Dashboards </th>
     </tr>
     <% @users.each do |u| %>
         <tr>
             <td> <%= "#{u.id} - #{u.name}" %> </td>
             <td> 
-                <%= link_to "Login", u %>
+                <%= link_to "Owner", u.as_owner %>
+                <%= link_to "Guest", u.as_guest %>
             </td>            
         </tr>
     <% end %>

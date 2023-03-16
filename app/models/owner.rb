@@ -41,8 +41,14 @@ class Owner < User
     end
 
     def set_invoice_as_paid(invoice)
-        invoice.paid = true
-        invoice.save!
+        if invoice.owner = self
+            invoice.paid = true
+            invoice.save
+        else
+            errors.add(:owner, "Only the owner can set an invoice as paid.") 
+            return false
+        end
+
     end
     
 end
