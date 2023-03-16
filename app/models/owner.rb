@@ -19,7 +19,7 @@ class Owner < User
     def create_invoices()
         
         invoices = []
-        stays_by_guest = stays.open.group_by(&:guest_id)
+        stays_by_guest = stays.unbilled.group_by(&:guest_id)
 
         stays_by_guest.each_pair do |guest_id, stays|
 
