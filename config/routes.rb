@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
     post '/checkin', to: 'user#checkin'
     post '/checkin', to: 'user#checkin'
+    post '/create_invoices', to: 'user#create_invoices'
+    post '/set_invoice_as_paid', to: 'user#set_invoice_as_paid'
     resources :room, only: [:create, :index]
 
   end

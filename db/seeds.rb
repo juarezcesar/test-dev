@@ -75,3 +75,4 @@ p "#{Room.busy.count} rooms busy "
 p "Creating invoices..."
 Owner.all[1..2].each { |o| o.as_owner.create_invoices() }
 p "#{Invoice.all.count} invoices created"
+p "#{Stay.all.unbilled.count} unbilled stays"

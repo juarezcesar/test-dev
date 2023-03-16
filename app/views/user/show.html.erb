@@ -6,7 +6,9 @@
 
 <div class="solid">
 
-  <%= render partial: "owner_panel", locals: {rooms: @rooms, unbilled_stays: @unbilled_stays} %>
+  <%= render partial: "owner_rooms", locals: {rooms: @rooms} %>
+  <%= render partial: "owner_unbilled_stays", locals: { unbilled_stays: @unbilled_stays, user: @user} %>
+  <%= render partial: "owner_invoices", locals: { invoices: @invoices, user: @user} %>
 
 </div>
 

@@ -1,0 +1,20 @@
+<% if rooms.empty? %>
+  <h3> There are no rooms </h3>
+<% else %>
+  <h3>Your Rooms</h3>
+
+  <table >
+    <tr>
+      <th> Room </th>
+      <th> Price per minute </th>
+      <th> Guest </th>
+    </tr>
+    <% rooms.each do |r| %>
+      <tr>
+        <td><%= r.name %></td>
+        <td><%= r.price %></td>
+        <td><%= r.guest && r.guest.name %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

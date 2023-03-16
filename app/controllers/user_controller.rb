@@ -11,9 +11,19 @@ class UserController < ApplicationController
     @unbilled_stays = 
       @owner.stays.unbilled.includes(:guest, :room).group_by {|s| s.guest.name}
         
+    @invoices = @owner.invoices.includes(:guest)
+
+
     #As a guest
     @guest = @user.as_guest
     @rooms_available = Room.available - @owner.rooms    
+  end
+
+  def set_invoice_as_paid
+    user = User.find(params[:user_id])
+    invoice = Invoice.find(params[:invoice_id])
+    user.as_owner.set_invoice_as_paid(invoice)
+    redirect_to user_path(user)
   end
 
   def checkin
@@ -23,5 +33,12 @@ class UserController < ApplicationController
   end
 
   def create_room
+  end
+
+  def create_invoices
+    @user = User.find(params[:user_id])
+    @user.as_owner.create_invoices
+    redirect_to user_path(@user)
+
   end
 end

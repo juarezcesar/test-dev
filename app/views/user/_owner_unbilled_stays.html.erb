@@ -1,0 +1,32 @@
+<% if unbilled_stays.empty? %>
+  <h3> There are no unbilled stays </h3>
+<% else %>
+
+  <h3>Unbilled Stays</h3>
+
+  <table >
+    <tr>
+      <th> Guest </th>
+      <th> Room </th>
+      <th> Minutes </th>
+      <th> Price per minute </th>
+      <th> Total </th>
+    </tr>
+    <% unbilled_stays.each do |guest_name, stays| %>
+      <tr>
+        <th><%= guest_name %></th>
+      </tr>
+      <% stays.each do |s| %>
+        <tr>
+          <td><%= s.room.name %></td>
+          <td><%= s.time %></td>
+          <td><%= s.room.price %></td>
+          <td><%= s.total %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  <%= form_with url: user_create_invoices_path(@user) do |form| %>
+    <%= form.submit "Create Invoices" %>
+  <% end %>  
+<% end %>
