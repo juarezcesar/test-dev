@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_125954) do
     t.integer "owner_id", null: false
     t.integer "guest_id"
     t.decimal "total", precision: 15, scale: 2
-    t.datetime "paid"
+    t.boolean "paid", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["guest_id"], name: "index_invoices_on_guest_id"

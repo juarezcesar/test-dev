@@ -43,10 +43,29 @@ RSpec.describe Owner, type: :model do
 
     expect(subject.invoices.size).to eq 2
     expect(subject.invoices.sum(&:total)).to eq 10*20+10*20
-   
-    
+       
   end
 
-  it "set the invoice as paid"
+  it "set the invoice as paid" do
+    r1 = subject.create_room( 'Greek Islands', 20)
+    r2 = subject.create_room( 'Philippine Islands', 20)
+
+    g1 = Guest.create!(name:"Paul")
+    g2 = Guest.create!(name:"Andrew")
+
+    g1.check_in(r1)
+    g2.check_in(r2)
+    g1.check_out(Time.now + 10.minutes)
+    g2.check_out(Time.now + 10.minutes)
+
+    subject.create_invoices()
+
+    subject.invoices.each do |i|
+      subject.set_invoice_as_paid(i)
+    end
+
+    expect(subject.invoices.paid.size).to eq 2
+    
+  end
 
 end

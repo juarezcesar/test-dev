@@ -33,11 +33,16 @@ class Owner < User
 
             invoice.total = stays.sum(&:total)
             invoice.save!
-            #invoices << invoice.save! && invoice
+            invoices << invoice
 
         end
 
         return invoices
+    end
+
+    def set_invoice_as_paid(invoice)
+        invoice.paid = true
+        invoice.save!
     end
     
 end
