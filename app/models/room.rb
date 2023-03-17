@@ -1,10 +1,11 @@
 class Room < ApplicationRecord
-  
+
   belongs_to :owner
   belongs_to :guest, optional: true
   has_many :stays
   
   validates :name, presence: true
+  validates :price,  presence: true
   validates :owner_id, presence: true
   validate :guest_cannot_be_the_owner
 
@@ -59,6 +60,9 @@ class Room < ApplicationRecord
     )
   end
 
+  def set_defaults
+    price = 0 if price.blank?
+  end
 
   
 end
