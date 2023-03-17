@@ -8,7 +8,7 @@
       <%= i.created_at.strftime('%d/%m/%y') %>
       <%= "#{i.guest.name}" %>
       $<%= i.total %>
-      <% if i.paid %> 
+      <% unless i.paid %> 
         <%= form_with url: owner_set_invoice_as_paid_path(@owner) do |form| %>
           <%= form.hidden_field :invoice_id, :value => i.id %>
           <%= form.submit "Set paid" %>
