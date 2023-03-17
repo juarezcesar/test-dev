@@ -14,7 +14,17 @@
  *= require_self
  */
 
- div.solid {border-style: solid;}
+ div.dashboard {
+  border-style: solid;
+  display: flex;
+}
+
+div.dashboard div{
+  padding: 20px;
+  width: 350px;
+  border-style: solid;
+
+}
 
 .error, .alert, .notice, .success, .info {
   padding:0.8em;

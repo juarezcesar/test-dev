@@ -1,32 +1,17 @@
+<h4>Unbilled Stays</h4>
+
 <% if unbilled_stays.empty? %>
-  <h3> There are no unbilled stays </h3>
+  <p> No stays. <p>
 <% else %>
-
-  <h3>Unbilled Stays</h3>
-
-  <table >
-    <tr>
-      <th> Guest </th>
-      <th> Room </th>
-      <th> Minutes </th>
-      <th> Price per minute </th>
-      <th> Total </th>
-    </tr>
-    <% unbilled_stays.each do |guest_name, stays| %>
-      <tr>
-        <th><%= guest_name %></th>
-      </tr>
-      <% stays.each do |s| %>
-        <tr>
-          <td></td>
-          <td><%= s.room.name %></td>
-          <td><%= s.time %></td>
-          <td><%= s.room.price %></td>
-          <td><%= s.total %></td>
-        </tr>
+  <% unbilled_stays.each do |guest_name, stays| %>
+    <p><%= guest_name %></p>
+      <% stays.each_with_index do |s,i| %>
+        <p>- Checked in '<%= s.room.name %>' at 
+           <%= s.check_in_time.strftime('%d/%m %H:%M')%>. 
+          US$<%= s.total %>
+        </p>
       <% end %>
-    <% end %>
-  </table>
+  <% end %>
   <%= form_with url: owner_create_invoices_path(@owner) do |form| %>
     <%= form.submit "Create Invoices" %>
   <% end %>  

@@ -1,32 +1,21 @@
+<h4>Invoices</h4>
 
-  
 <% if invoices.empty? %>
-  <h3> There are no invoices </h3>
+  <p> No invoices. <p>
 <% else %>
-  <h3>Invoices</h3>
-
-  <table >
-    <tr>
-      <th>Guest</th>
-      <th>Total</th>
-      <th>Created at</th>
-      <th>Paid</th>
-    </tr>
-    <% invoices.each do |i| %>
-      <tr>
-        <td><%= "#{i.id} - #{i.guest.name}" %></td>
-        <td><%= i.total %></td>
-        <td><%= i.created_at.strftime('%d/%m/%y %H:%M') %></td>
-        <td><%= i.paid ? "Yes" : "No" %></td>
-        <td> 
-          <% if !i.paid %> 
-            <%= form_with url: owner_set_invoice_as_paid_path(@owner) do |form| %>
-              <%= form.hidden_field :invoice_id, :value => i.id %>
-              <%= form.submit "Set as paid" %>
-            <% end %>  
-          <% end %>  
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <% invoices.each do |i| %>
+    <p>
+      <%= i.created_at.strftime('%d/%m/%y') %>
+      <%= "#{i.guest.name}" %>
+      $<%= i.total %>
+      <% if i.paid %> 
+        <%= form_with url: owner_set_invoice_as_paid_path(@owner) do |form| %>
+          <%= form.hidden_field :invoice_id, :value => i.id %>
+          <%= form.submit "Set paid" %>
+        <% end %>
+      <% else %>
+        <strong>paid</strong>
+      <% end %>  
+    </p>
+  <% end %>
 <% end %>

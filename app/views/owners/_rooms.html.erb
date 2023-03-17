@@ -1,27 +1,27 @@
-<% if rooms.empty? %>
-  <h3> There are no rooms </h3>
-<% else %>
-  <h3>Your Rooms</h3>
+<h4>Your Rooms</h4>
 
+<% if rooms.empty? %>
+  <p> No rooms were created.</h4>
+<% else %>
   <table >
     <tr>
       <th> Room </th>
       <th> Price </th>
       <th> Guest </th>
+      <th> Check in </th>
     </tr>
     <% rooms.each do |r| %>
       <tr>
         <td><%= r.name %></td>
         <td><%= r.price %></td>
         <td>
-          <% if r.guest %>
-            <%= link_to r.guest.name, guest_dashboard_path(r.guest) %> checked in at <%= r.check_in_time.strftime('%d/%m/%y %H:%M')%>
-          <% else %>
-            available
-          <% end %>
+          <%= r.busy? ? (link_to r.guest.name, guest_dashboard_path(r.guest)) : "available" %> 
         </td>
+        <td><%= r.check_in_time.strftime('%d/%m %H:%M') if r.guest %> </td>
       </tr>
     <% end %>
   </table>
 <% end %>
+<br>
+<br>
 <%= link_to "New room", new_owner_room_path(@owner)  %>  

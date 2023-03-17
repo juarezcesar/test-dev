@@ -1,14 +1,13 @@
-
-<h1>Dashboard</h1>
+<h2>Dashboard</h2>
 
 <h2> <%= @guest.name %> </h2>
 
-<div class="solid">
+<div class="">
   <% if @guest.hosted? %>
-    <p> You are hosted at: <%= @guest.room.name %> </p>
+    <p> You are hosted at: <%= @guest.room.name %> room.</p>
     <p> Check in: <%= @guest.room.check_in_time.strftime('%d/%m/%y %H:%M') %> </p>
     <p> Price per minute: <%= @guest.room.price %> </p>
-    <p> Total so far: <%= @guest.room.calculate_total(Time.now) %> </p>
+    <p> Total so far: $<%= @guest.room.calculate_total(Time.now) %> </p>
 
     <%= form_with url: guest_checkout_path(@guest) do |form| %>
       <%= form.submit "Check out" %>

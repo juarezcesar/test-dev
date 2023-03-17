@@ -1,12 +1,12 @@
-<h1>Dashboard</h1>
+<h2>Owner Dashboard</h2>
 
 <h2> <%= @owner.name %> </h2>
 
-<div class="solid">
+<div class="dashboard">
 
-  <%= render partial: "rooms", locals: {rooms: @rooms} %>
-  <%= render partial: "unbilled_stays", locals: { unbilled_stays: @unbilled_stays, owner: @owner} %>
-  <%= render partial: "invoices", locals: { invoices: @invoices, owner: @owner} %>
+  <div><%= render partial: "rooms", locals: {rooms: @rooms} %></div>
+  <div><%= render partial: "unbilled_stays", locals: { unbilled_stays: @unbilled_stays, owner: @owner} %></div>
+  <div><%= render partial: "invoices", locals: { invoices: @invoices, owner: @owner} %></div>
 
 </div>
 
