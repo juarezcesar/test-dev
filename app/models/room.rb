@@ -5,7 +5,7 @@ class Room < ApplicationRecord
   has_many :stays
   
   validates :name, presence: true
-  validates :price,  presence: true
+  validates :price,  presence: true, numericality: true
   validates :owner_id, presence: true
   validate :guest_cannot_be_the_owner
 
