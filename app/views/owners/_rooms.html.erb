@@ -15,7 +15,7 @@
         <td><%= r.price %></td>
         <td>
           <% if r.guest %>
-            <%= link_to r.guest.name, guest_dashboard_path(r.guest) %>
+            <%= link_to r.guest.name, guest_dashboard_path(r.guest) %> checked in at <%= r.check_in_time.strftime('%d/%m/%y %H:%M')%>
           <% else %>
             available
           <% end %>

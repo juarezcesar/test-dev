@@ -16,7 +16,7 @@
       <tr>
         <td><%= "#{i.id} - #{i.guest.name}" %></td>
         <td><%= i.total %></td>
-        <td><%= i.created_at.strftime('%FT%T') %></td>
+        <td><%= i.created_at.strftime('%d/%m/%y %H:%M') %></td>
         <td><%= i.paid ? "Yes" : "No" %></td>
         <td> 
           <% if !i.paid %> 
