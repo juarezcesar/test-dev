@@ -9,12 +9,12 @@ class GuestsController < ApplicationController
   def checkin
     room = Room.find(params[:room_id])
     @guest.check_in(room)    
-    redirect_to guest_dashboard_path(@guest)
+    redirect_to guest_dashboard_path(@guest), notice: "Check in succeed"
   end
 
   def checkout
-    @guest.check_out()    
-    redirect_to guest_dashboard_path(@guest)
+    stay = @guest.check_out()    
+    redirect_to guest_dashboard_path(@guest), notice: "Check out succeed. Your bills is #{stay.total}"
   end
 
   private 
