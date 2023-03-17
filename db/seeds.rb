@@ -67,6 +67,18 @@ Room.busy[1..10].each do |r|
   end
 end
 
+p "Guest will check again in....."
+count = 0
+rooms = Room.available
+users.sort_by(&:name).each_with_index do |u,i|
+  if rooms.any? && u.as_guest.check_in(rooms[i], Time.now - 5.minutes) 
+    p "    #{u.name} checked in at #{rooms[i].name}"
+    count += 1
+  end
+end
+p "#{count} guests checked in and #{ Room.available.count} rooms available"
+
+
 p "#{count} guests checked out"
 p "#{Room.available.count} rooms available "
 p "#{Room.busy.count} rooms busy "
@@ -81,5 +93,5 @@ p "#{Stay.all.unbilled.count} unbilled stays"
 p
 p "Results"
 Owner.all.sort_by(&:name).each do |o|
-  p "id:#{o.id.to_s.rjust(2,"0")} - #{o.name.ljust(17)}  #{o.rooms.count} rooms  #{o.stays.unbilled.count} unbilled stays #{o.invoices.count} invoices"
+  p "id:#{o.id.to_s.rjust(2,"0")} - #{o.name.ljust(17)}  #{o.guests.count} guests #{o.rooms.available.count} rooms available  #{o.stays.unbilled.count} unbilled stays #{o.invoices.count} invoices"
 end
