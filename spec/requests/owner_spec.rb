@@ -43,10 +43,8 @@ RSpec.describe "Owners", type: :request do
       owner = Owner.create(name: "Paul")
       room = owner.create_room('Greek Islands')
       
-      post owner_rooms_path(owner)
+      post owner_rooms_path(owner), params: {room: {name: "PP01", price: 10}}
       
-
-      get "/user/create_room"
       expect(response).to have_http_status(:redirect)
     end
   end
