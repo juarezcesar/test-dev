@@ -20,7 +20,7 @@ Invoice.destroy_all
 Room.destroy_all
 User.destroy_all
 
-names = ["James Madison", "John Quincy Adams", "William Henry Harrison", "Zachary Taylor", "Millard Fillmore", "Franklin Pierce", "Mariam Crane", "Audrey Beck", "Elouise Thornton", "Suzanne Harrison", "Arun Allison", "Asad Lee", "Daniella Colon", "Findlay Copeland"]
+names = ["James Madison", "John Quincy Adams", "William Henry", "Zachary Taylor", "Millard Fillmore", "Franklin Pierce", "Mariam Crane", "Audrey Beck", "Elouise Thornton", "Suzanne Harrison", "Arun Allison", "Asad Lee", "Daniella Colon", "Findlay Copeland"]
 
 # 14 users will created
 
@@ -34,10 +34,10 @@ p "#{users.count} users created"
 
 
 
-# Create 3 rooms for the first 10 users. Name: Owner initials + index"
+# Create 2 rooms for the first 10 users. Name: Owner initials + index"
 users[1..10].each do |u|
   room_name = u.name.scan(/\b\w/).join
-  number_of_rooms = 3
+  number_of_rooms = 2
   number_of_rooms.times do |i|
     u.as_owner.create_room("#{room_name} - #{i+1}", 10.0 )
   end    
@@ -49,7 +49,7 @@ p "Check guest in....."
 count = 0
 rooms = Room.available
 users.sort_by(&:name).each_with_index do |u,i|
-  if i <= rooms.size && u.as_guest.check_in(rooms[i]) 
+  if rooms.any? && u.as_guest.check_in(rooms[i], Time.now - 20.minutes) 
     p "    #{u.name} checked in at #{rooms[i].name}"
     count += 1
   end
@@ -61,7 +61,7 @@ p "Check guests out the rooms..."
 count = 0
 Room.busy[1..10].each do |r|
   g = r.guest
-  if g.check_out(Time.now + 30.minutes)
+  if g.check_out(Time.now - 10.minutes)
     p "   #{g.name} checked out at #{r.name}"
     count += 1 
   end
@@ -76,3 +76,10 @@ p "Creating invoices..."
 Owner.all[1..2].each { |o| o.as_owner.create_invoices() }
 p "#{Invoice.all.count} invoices created"
 p "#{Stay.all.unbilled.count} unbilled stays"
+
+#Results
+p
+p "Results"
+Owner.all.sort_by(&:name).each do |o|
+  p "id:#{o.id.to_s.rjust(2,"0")} - #{o.name.ljust(17)}  #{o.rooms.count} rooms  #{o.stays.unbilled.count} unbilled stays #{o.invoices.count} invoices"
+end
