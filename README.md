@@ -4,7 +4,7 @@
   - A stadia corrente está registrada em campos na própria Tabela "Room" ao invés da tabela "Stay". A razão para isto é a redução de joins visando performance e simplificação do código. Assumindo também que a tabela Stay irá crescer indeterminadamente.
   - Foi considerado chamar Stays como InvoiceItems mas descartado.
   - Foi considerado criar Owner e Guest como nested classes do Usuário. Porém, optei por gerar simples herança desde que também atende bem e é uma a solução mais popular.
-  - Não houve preocupação com estética e usabilidade da interface.
+  - Não houve preocupação com estética e usabilidade da interface. Será fácil perceber.
   
 2. Foram feitos tests para o model e alguns poucos para request usando rspec. Rodar rspec.
 
