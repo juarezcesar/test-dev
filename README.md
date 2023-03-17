@@ -29,6 +29,8 @@ Things you may want to cover:
   - Foi considerado colocar a Stay como InvoiceItem mas descartado.
   - Foi considerado criar Owner e Guest como nested classes do Usuário. Porém, optei por gerar simples herança simples desde que também atende bem a solução.
 
+2. Foram feitos test para o model e alguns poucos para requests
+
 
 
 

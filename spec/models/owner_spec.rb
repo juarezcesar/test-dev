@@ -22,7 +22,7 @@ RSpec.describe Owner, type: :model do
     g1.check_in(r1)
     g2.check_in(r2)
 
-    guest_ids = subject.guests(&:id).sort
+    guest_ids = subject.guests.pluck(:id).sort
    
     expect(guest_ids).to match_array([g1.id,g2.id].sort)
   end
