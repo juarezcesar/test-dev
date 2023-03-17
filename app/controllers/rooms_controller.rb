@@ -13,9 +13,9 @@ class RoomsController < ApplicationController
     @room = @owner.rooms.new(room_params)
 
     if @room.save
-      redirect_to owner_dashboard_path(@owner), notice: "Room was successfully created."
+      redirect_to owner_dashboard_path(@owner), notice: "Room #{@room.name} was successfully created."
     else
-      render :new, status: :unprocessable_entity      
+      render :new, status: :unprocessable_entity, alert: "Message errors:"      
     end
 
   end

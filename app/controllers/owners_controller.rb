@@ -15,12 +15,12 @@ class OwnersController < ApplicationController
   def set_invoice_as_paid
     invoice = @owner.invoices.find(params[:invoice_id])
     @owner.set_invoice_as_paid(invoice)
-    redirect_to owner_dashboard_path(@owner)
+    redirect_to owner_dashboard_path(@owner), notice: "Invoice to '#{@owner.name}' set as paid"
   end
 
   def create_invoices
-    @owner.create_invoices
-    redirect_to owner_dashboard_path(@owner)
+    invoices = @owner.create_invoices
+    redirect_to owner_dashboard_path(@owner), notice: "Invoices created for #{invoices.map{ |i| i.guest.name}.join(', ')}."
   end
 
   private 

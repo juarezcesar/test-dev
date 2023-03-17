@@ -13,6 +13,13 @@
     <%= link_to "Login", root_path%>
     <%= link_to "Guest Dashboard", guest_dashboard_path(@owner) if @owner %>
     <%= link_to "Owner Dashboard", owner_dashboard_path(@guest) if @guest %>
+    <div id="notice" >
+      <% flash.each do |type, msg| %>
+        <div class="<%= type %>" >
+          <%= msg %>
+        </div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
