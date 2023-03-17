@@ -22,7 +22,7 @@ class OwnerController < ApplicationController
 
   def create_invoices
     @owner.create_invoices
-    redirect_to user_dashboard_path(@owner)
+    redirect_to owner_dashboard_path(@owner)
 
   end
 
