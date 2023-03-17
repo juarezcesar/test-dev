@@ -11,6 +11,8 @@
 
   <body>
     <%= link_to "Login", root_path%>
+    <%= link_to "Guest Dashboard", guest_dashboard_path(@owner) if @owner %>
+    <%= link_to "Owner Dashboard", owner_dashboard_path(@guest) if @guest %>
     <%= yield %>
   </body>
 </html>

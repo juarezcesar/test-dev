@@ -12,7 +12,7 @@ class RoomController < ApplicationController
     @room = Room.new(room_params)
 
     if @room.save
-      redirect_to owner_path(@owner), notice: "Room was successfully created."
+      redirect_to owner_dashboard_path(@owner), notice: "Room was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,6 +26,6 @@ class RoomController < ApplicationController
   end
 
   def room_params
-    params.permit(:owner_id, :name, :price)
+    params.permit(:name, :price, :owner_id)
   end
 end

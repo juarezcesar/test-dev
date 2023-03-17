@@ -1,43 +1,33 @@
 class GuestController < ApplicationController
 
-  before_action :set_owner
+  before_action :set_guest
 
-  def show
+  def dashboard
 
-    @rooms = @owner.rooms
-
-    # Adding guest and room names to stays, and sorting by user name. Using join to avoid many calls to DB
-    @unbilled_stays = 
-      @owner.stays.unbilled.includes(:guest, :room).group_by {|s| s.guest.name}
-        
-    @invoices = @owner.invoices.includes(:guest)
-
-    #As a guest
-    @guest = @user.as_guest
-    @rooms_available = Room.available - @owner.rooms    
-  end
-
-  def set_invoice_as_paid
-    user = User.find(params[:user_id])
-    invoice = Invoice.find(params[:invoice_id])
-    user.as_owner.set_invoice_as_paid(invoice)
-    redirect_to user_path(user)
-  end
-
-  def create_room
-  end
-
-  def create_invoices
-    @user = User.find(params[:user_id])
-    @user.as_owner.create_invoices
-    redirect_to user_path(@user)
+    @rooms_available = @guest.rooms_available
 
   end
+
+  def checkin
+    room = Room.find(params[:room_id])
+    @guest.check_in(room)    
+    redirect_to guest_dashboard_path(@guest)
+  end
+
+  def checkout
+    @guest.check_out()    
+    redirect_to guest_dashboard_path(@guest)
+  end
+
 
   private 
 
-  def set_owner
-    @owner = Owner.find(params[:id])
+  def set_guest
+    @guest = Guest.find(params[:id] || params[:guest_id])
+  end
+
+  def form_params
+    params.permit(:room_id, :guest_id)      
   end
 
 end

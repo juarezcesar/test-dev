@@ -12,8 +12,8 @@
         <tr>
             <td> <%= "#{u.id} - #{u.name}" %> </td>
             <td> 
-                <%= link_to "Owner", u.as_owner %>
-                <%= link_to "Guest", u.as_guest %>
+                <%= link_to "Owner", owner_dashboard_path(u.as_owner) %>
+                <%= link_to "Guest", guest_dashboard_path(u.as_guest) %>
             </td>            
         </tr>
     <% end %>

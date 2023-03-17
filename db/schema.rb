@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_125954) do
 
   create_table "rooms", force: :cascade do |t|
     t.string "name"
-    t.decimal "price", precision: 15, scale: 2
+    t.decimal "price", precision: 15, scale: 2, default: "0.0", null: false
     t.datetime "check_in_time"
     t.integer "owner_id", null: false
     t.integer "guest_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_125954) do
     t.integer "guest_id"
     t.datetime "check_in_time", null: false
     t.datetime "check_out_time", null: false
-    t.decimal "total", precision: 15, scale: 2, null: false
+    t.decimal "total", precision: 15, scale: 2, default: "0.0", null: false
     t.integer "invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

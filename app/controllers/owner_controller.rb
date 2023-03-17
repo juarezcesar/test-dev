@@ -2,7 +2,7 @@ class OwnerController < ApplicationController
 
   before_action :set_owner
 
-  def show
+  def dashboard
 
     @rooms = @owner.rooms
 
@@ -15,25 +15,26 @@ class OwnerController < ApplicationController
   end
 
   def set_invoice_as_paid
-    invoice = Invoice.find(params[:invoice_id])
+    invoice = @owner.invoices.find(params[:invoice_id])
     @owner.set_invoice_as_paid(invoice)
-    redirect_to user_path(user)
-  end
-
-  def create_room
+    redirect_to owner_dashboard_path(@owner)
   end
 
   def create_invoices
-    @user = User.find(params[:user_id])
-    @user.as_owner.create_invoices
-    redirect_to user_path(@user)
+    @owner.create_invoices
+    redirect_to user_dashboard_path(@owner)
 
   end
 
   private 
 
   def set_owner
-    @owner = Owner.find(params[:id])
+    @owner = Owner.find(params[:id] || params[:owner_id])
   end
+
+  def form_params
+    params.permit(:invoice, :guest_id)      
+  end
+
 
 end

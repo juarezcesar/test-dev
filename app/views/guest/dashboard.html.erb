@@ -1,0 +1,43 @@
+
+<h1>Dashboard</h1>
+
+<h2> <%= @guest.name %> </h2>
+
+<div class="solid">
+  <% if @guest.hosted? %>
+    <p> You are hosted at: <%= @guest.room.name %> </p>
+    <p> Check in: <%= @guest.room.check_in_time %> </p>
+    <p> Price per minute: <%= @guest.room.price %> </p>
+
+    <%= form_with url: guest_checkout_path(@guest) do |form| %>
+      <%= form.submit "Check out" %>
+    <% end %>  
+  <% else %>
+    <% if @rooms_available.empty? %>
+      <h3> There are no rooms available </h3>
+    <% else %>
+      <h3>Rooms Available</h3>
+
+      <table >
+        <tr>
+          <th> Room </th>
+          <th> Price </th>
+          <th>  </th>
+        </tr>
+        <% @rooms_available.each do |r| %>
+          <tr>
+            <td><%= r.name %></td>
+            <td><%= r.price %></td>
+            <td> 
+              <%= form_with url: guest_checkin_path(@guest) do |form| %>
+                <%= form.hidden_field :room_id, :value => r.id %>
+                <%= form.submit "Check in" %>
+              <% end %>  
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% end %>
+</div>
+

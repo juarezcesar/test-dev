@@ -3,9 +3,12 @@ class Guest < User
     has_many :stays
     has_one :room
 
-    #methods as guest
     def hosted?
         room.present?
+    end
+
+    def rooms_available
+        Room.available.where.not(owner: self )
     end
 
     def check_in(room, time = Time.now)  
