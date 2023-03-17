@@ -28,7 +28,9 @@ class Room < ApplicationRecord
   
   def check_out(check_out_time = Time.now)
     if busy? 
-      return register_stay(check_out_time) && free_room()      
+      stay = register_stay(check_out_time)
+      free_room() if stay.valid?
+      return stay 
     else
       return false
     end
