@@ -13,13 +13,13 @@
 4. O devise foi removido para simplificar. O login é feito através da seleção do User na tela root. Não há authenticação.
 
 5. Instalação: 
-  1. git clone https://github.com/juarezcesar/test-dev.git
-  2. cd test-dev
-  3. bundle install
-  4. rails db:create
-  5. rails db:migrate
-  6. rails db:seed
-  7. rails s
+    5.1 git clone https://github.com/juarezcesar/test-dev.git
+    5.2 cd test-dev
+    5.3 bundle install
+    5.4 rails db:create
+    5.5 rails db:migrate
+    5.6 rails db:seed
+    5.7 rails s
     
 6. Run spec to run the tests
 
