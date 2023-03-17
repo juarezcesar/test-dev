@@ -1,11 +1,8 @@
 class Room < ApplicationRecord
-  include ActiveModel::Conversion
-  extend  ActiveModel::Naming
   
   belongs_to :owner
   belongs_to :guest, optional: true
   has_many :stays
-  has_one :currentstays
   
   validates :name, presence: true
   validates :owner_id, presence: true
