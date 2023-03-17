@@ -3,7 +3,6 @@ class OwnerController < ApplicationController
   before_action :set_owner
 
   def dashboard
-
     @rooms = @owner.rooms
 
     # Adding guest and room names to stays, and sorting by user name. Using join to avoid many calls to DB
@@ -11,7 +10,6 @@ class OwnerController < ApplicationController
       @owner.stays.unbilled.includes(:guest, :room).group_by {|s| s.guest.name}
         
     @invoices = @owner.invoices.includes(:guest)
-
   end
 
   def set_invoice_as_paid
@@ -23,7 +21,6 @@ class OwnerController < ApplicationController
   def create_invoices
     @owner.create_invoices
     redirect_to owner_dashboard_path(@owner)
-
   end
 
   private 

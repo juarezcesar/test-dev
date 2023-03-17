@@ -13,7 +13,12 @@
       <tr>
         <td><%= r.name %></td>
         <td><%= r.price %></td>
-        <td><%= r.guest ? r.guest.name : 'available' %></td>
+        <td>
+          <% if r.guest %>
+            <%= link_to r.guest.name, guest_dashboard_path(r.guest) %>
+          <% else %>
+            <td>available</td>
+          <% end %>
       </tr>
     <% end %>
   </table>

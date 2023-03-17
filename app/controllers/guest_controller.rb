@@ -3,9 +3,7 @@ class GuestController < ApplicationController
   before_action :set_guest
 
   def dashboard
-
     @rooms_available = @guest.rooms_available
-
   end
 
   def checkin
@@ -18,7 +16,6 @@ class GuestController < ApplicationController
     @guest.check_out()    
     redirect_to guest_dashboard_path(@guest)
   end
-
 
   private 
 

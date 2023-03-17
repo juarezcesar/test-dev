@@ -25,7 +25,7 @@ names = ["James Madison", "John Quincy Adams", "William Henry Harrison", "Zachar
 # 14 users will created
 
 p "Creating users ...."
-names.each do |n|
+names.sort.each do |n|
   u = User.create!(name: n)
   p "(#{u.id}) #{u.name}"
 end
