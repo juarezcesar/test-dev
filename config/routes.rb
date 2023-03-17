@@ -6,19 +6,19 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :owner, only: [:show] do
+  resources :owners, only: [:show] do
 
-    get '/dashboard', to: 'owner#dashboard'
-    post '/create_invoices', to: 'owner#create_invoices'
-    post '/set_invoice_as_paid', to: 'owner#set_invoice_as_paid'
-    resources :room, only: [:new, :create]
+    get '/dashboard', to: 'owners#dashboard'
+    post '/create_invoices', to: 'owners#create_invoices'
+    post '/set_invoice_as_paid', to: 'owners#set_invoice_as_paid'
+    resources :rooms, only: [:new, :create]
   end
 
-  resources :guest, only: [:show] do
+  resources :guests, only: [:show] do
 
-    get '/dashboard', to: 'guest#dashboard'
-    post '/checkin', to: 'guest#checkin'
-    post '/checkout', to: 'guest#checkout'
+    get '/dashboard', to: 'guests#dashboard'
+    post '/checkin', to: 'guests#checkin'
+    post '/checkout', to: 'guests#checkout'
 
   end
 

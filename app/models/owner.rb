@@ -3,6 +3,7 @@ class Owner < User
     has_many :rooms
     has_many :invoices
     has_many :stays, through: :rooms
+    has_many :guests, through: :rooms
     
        
     # methods as owner
@@ -11,10 +12,6 @@ class Owner < User
         room.save!
         return room
     end
-
-    def guest_list
-        rooms.busy.map(&:guest)
-    end 
 
     def create_invoices()
         

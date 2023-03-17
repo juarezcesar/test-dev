@@ -17,8 +17,9 @@
           <% if r.guest %>
             <%= link_to r.guest.name, guest_dashboard_path(r.guest) %>
           <% else %>
-            <td>available</td>
+            available
           <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
